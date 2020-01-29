@@ -1,4 +1,5 @@
 import React from 'react'
+import DataEntryMethod from '../components/DataEntryMethod';
 import styled from '@emotion/styled';
 
 const StyledMain = styled.div`
@@ -11,9 +12,15 @@ const StyledMain = styled.div`
 const Home = () => {
     return (
         <StyledMain>
-            <div>Import</div>
-            <div>Paste</div>
-            <div>Manual</div>
+            <DataEntryMethod
+                key="import"
+                name="Import"/>
+            <DataEntryMethod
+                key="paste"
+                name="Paste"/>
+            <DataEntryMethod 
+                key="manual"
+                name="Manual"/>
         </StyledMain>
     )
 }
