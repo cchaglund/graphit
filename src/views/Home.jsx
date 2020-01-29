@@ -14,13 +14,24 @@ const Home = () => {
         <StyledMain>
             <DataEntryMethod
                 key="import"
-                name="Import"/>
+                name="Upload file (JSON or CSV)">
+                    Content
+            </DataEntryMethod>
             <DataEntryMethod
                 key="paste"
-                name="Paste"/>
+                name="Paste in raw data">
+                    Content!!
+            </DataEntryMethod>
             <DataEntryMethod 
                 key="manual"
-                name="Manual"/>
+                name="Enter data manually">
+                    Content!!!
+                    <h1>some text</h1>
+                    <p>MORE TEXT</p>
+                    <h1>YEHAW</h1>
+                    <h1>YEHAW</h1>
+                    <h1>YEHAW</h1>
+            </DataEntryMethod>
         </StyledMain>
     )
 }

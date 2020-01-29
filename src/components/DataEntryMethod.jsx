@@ -1,66 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import * as d3 from "d3";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Rectangle from './Rectangle'
 
 var winWidth = window.innerWidth;
-var winHeight = window.innerHeight;
+// var winHeight = window.innerHeight;
 
 const StyledDiv = styled.div`
     display: flex;
     justify-content: center;
+    padding: 1rem 0.5rem;
 `;
 
-const DataEntryMethod = ({ name }) => {
+const Content = styled.div`
+    overflow: hidden;
+    height: ${ props => props.show ? '400px' : '0px' };
+    width: 100vw;
+    display: block;
+    background-color: #575757;
+    transition: height 0.3s;
+`;
+
+const DataEntryMethod = ({ name, children }) => {
     const [ expandedState, setExpandedState ] = useState(false);
-    const svgRef = React.createRef();
-    const secRef = React.createRef();
-
-    useEffect(() => {
-        // let section = d3.select(secRef.current);
-
-        // section.transition()
-        //     .duration(1000)
-        //     .ease(d3.easeBackInOut)
-        //     .attr('x', 200)
-
-    }, [])
-
-    const toggleExpand = () => {
-        // expandedState ? contractSvg() : expandSvg();
-        let svg = d3.select(svgRef.current);
-
-        svg.transition()
-            .duration(300)
-            .ease(d3.easeBackInOut)
-            .attr('height', expandedState ? 0 : 200)
-
-        let section = d3.select(secRef.current);
-
-        section.transition()
-            .duration(300)
-            .ease(d3.easeBackInOut)
-            .attr('height', expandedState ? 0 : 200)
-
-        setExpandedState(!expandedState)
-    }
 
     return(
         <div>
-            <StyledDiv onClick={ () => toggleExpand()}>
+            <StyledDiv onClick={ () => setExpandedState(!expandedState) }>
                 {name}
             </StyledDiv>
-            <svg width={winWidth} height={0} ref={svgRef}>
-                <g>
-                    <rect 
-                        x={0} 
-                        y={0} 
-                        height={0} 
-                        width={winWidth} 
-                        fill={'blue'}
-                        ref={secRef}></rect>
-                </g>
-            </svg>
+            <Content show={ expandedState }>
+                {children}
+            </Content>
+            {/* <Rectangle
+                show={ expandedState }
+                width={ winWidth }
+                height={ expandedState ? 200 : 0 } /> */}
         </div>
     )
 }
