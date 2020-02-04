@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 
 const Nav = styled.nav`
-    width: 100vw;
     height: 3rem;
     padding: 2rem;
     display: flex;
@@ -19,8 +18,9 @@ const Nav = styled.nav`
 
 const StyleWrapper = styled.div`
     background-color: #383838;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
 `;
 
 const StyledLink = styled(Link)`
@@ -30,8 +30,8 @@ const StyledLink = styled(Link)`
 
 function App() {
     return (
-        <StyleWrapper>
-            <Router>
+        <Router>
+            <StyleWrapper>
                 <Nav>
                     <StyledLink to="/">Home</StyledLink>
                     <StyledLink to="/graph">Graph</StyledLink>
@@ -46,8 +46,9 @@ function App() {
                         </Route>
                     </Switch>
                 </main>
-            </Router>
-        </StyleWrapper>
+            </StyleWrapper>
+        </Router>
+        
     );
 }
 
