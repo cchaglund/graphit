@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as d3 from "d3";
 import "d3-selection-multi";
 
-const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding, textColor, width}) => {
+const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsColor, title, padding, textColor, width}) => {
     const svgRef = React.createRef();
     // const recRef = React.createRef();
 
@@ -14,13 +14,13 @@ const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding
         .domain([ 0, d3.max(dataDomain)])
         .range([ 0, width])
 
-    const updateGraph = () => {
+    const updateBarChart = () => {
         let svg = d3.select(svgRef.current)
             .style('display', 'block')
             .style('padding', '2rem')
             .style('background-color', `#${backgroundColor}`)
             .attrs({
-                height: dataDomain.length * padding + (title ? 50 : 0)
+                height: dataDomain.length * padding + (title ? 50 : 0) + (barThickness * dataDomain.length),
             })
         
         svg.selectAll('g').remove() // clear all previous gs
@@ -63,11 +63,17 @@ const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding
             .enter().append('rect')
             .merge(rects)
             .attrs({
-                x: 20,
-                y: (d, i) => (padding * i) + (title ? 50 : 0),
+                x: 10 * labelCharLength,
+                y: (d, i) => (padding * i) + (title ? 50 : 0) + (barThickness * i),
                 height: barThickness,
-                width: d => xScale(fields[d]),
+                width: 0,
                 fill: `#${barsColor}`
+            })
+            .transition()
+            .duration(400)
+            .ease(d3.easeQuadOut)
+            .attrs({
+                width: d => xScale(fields[d]),
             })
     }
 
@@ -76,9 +82,10 @@ const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding
             .enter().append('text')
             .merge(texts)
             .text(d => d)
+            .attr('text-anchor', 'end')
             .attrs({
-                x: 0,
-                y: (d, i) => (padding * i) + 17 + (title ? 50 : 0),
+                x: 8 * labelCharLength,
+                y: (d, i) => (padding * i) + 17 + (title ? 50 : 0) + (barThickness * i),
                 height: barThickness,
                 fill: `#${textColor}`,
             })
@@ -87,7 +94,7 @@ const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding
     
 
     useEffect(() => {
-        updateGraph()
+        updateBarChart()
 
         // svg.transition()
         //     .duration(300)
@@ -114,4 +121,4 @@ const Graph = ({fields, backgroundColor, barThickness, barsColor, title, padding
     )
 }
 
-export default Graph;
+export default BarChart;
