@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router-dom";
-import Rectangle from '../components/Rectangle';
 import Bar from './Bar';
 import Pie from './Pie';
 import styled from '@emotion/styled';
 
-
 const winWidth = window.innerWidth;
 const width = winWidth * 0.75;
-// var winHeight = window.innerHeight;
 
 const StyledRow = styled.div`
     margin: auto;
@@ -20,8 +17,8 @@ const StyledRow = styled.div`
 `;
 
 const GraphOverview = ({ location }) => {
-    // const [ expandedState, setExpandedState ] = useState(false);
     const [ barChartActive, setBarChartActive ] = useState(true);
+    const [ exportChart, setExportChart ] = useState(false);
 
     const chartSwitchHandler = () => {
         setBarChartActive(!barChartActive)
@@ -37,18 +34,19 @@ const GraphOverview = ({ location }) => {
     return (
         <StyledRow>
             <h3>Graph Overview</h3>
+            <button onClick={() => setExportChart(!exportChart)}>
+                EXPORT
+            </button>
             <h4 onClick={chartSwitchHandler}>Switch to pie chart</h4>
-            { 
-                barChartActive
-                ?
-                <Bar fields={fields} width={width} charCount={charCount}/>
-                : 
-                <Pie fields={fields} width={width}/>
-            }
-            {/* <Rectangle
-                show={ true }
-                width={ winWidth }
-                height={ true ? 200 : 0 } /> */}
+            <div id='bar'>
+                { 
+                    barChartActive
+                    ?
+                    <Bar fields={fields} width={width} charCount={charCount} exportChart={exportChart} />
+                    : 
+                    <Pie fields={fields} width={width} exportChart={exportChart} />
+                }
+            </div>
         </StyledRow>
     )
 }

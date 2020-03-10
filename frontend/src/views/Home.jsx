@@ -13,6 +13,21 @@ const StyledMain = styled.div`
 `;
 
 const Home = () => {
+
+    const callBackendAPI = async () => {
+        const response = await fetch('/api');
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            console.log('errur')
+            throw Error(body.message) 
+        }
+        console.log(body)
+        return body;
+    };
+
+    callBackendAPI()
+
     return (
         <StyledMain>
             <DataEntryMethod

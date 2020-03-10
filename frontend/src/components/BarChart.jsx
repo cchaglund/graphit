@@ -2,9 +2,34 @@ import React, { useEffect } from 'react';
 import * as d3 from "d3";
 import "d3-selection-multi";
 
-const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsColor, title, padding, textColor, width}) => {
+const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsColor, title, padding, textColor, width, exportChart}) => {
+    useEffect(() => {
+        updateBarChart()
+    })
+
+    const prepareExport = () => {
+        const cloned = document.getElementById('barchart').cloneNode(true)
+
+        const chartExport = document.getElementById('chartForExport')
+        chartExport.innerHTML = cloned.innerHTML
+
+        const rects = chartExport.getElementsByTagName('rect')
+
+        Object.keys(rects).forEach(key => {
+            const widthAtAnimEnd = rects[key].width.baseVal.valueAsString
+            rects[key].innerHTML = `
+                <animate attributeType="CSS" attributeName="width" from="0" to="${widthAtAnimEnd}" dur="1s" />
+            `
+        })
+
+        const textArea = document.getElementById('textArea')
+        textArea.value = chartExport.innerHTML
+        textArea.select()
+        document.execCommand('copy')
+        alert('Copied code to clipboard!')
+    }
+
     const svgRef = React.createRef();
-    // const recRef = React.createRef();
 
     const dataDomain = Object.keys(fields).map( field => {
         return parseInt(fields[field]);
@@ -34,12 +59,6 @@ const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsC
 
         const texts = graphic.selectAll('text')
         createAndOrUpdateTexts(texts)
-
-        /* These don't seem to do anything */
-        // graphic.exit().remove()
-        // header.exit().remove()
-        // rects.exit().remove()
-        // texts.exit().remove()
     }
 
     const createAndOrUpdateHeader = (header) => {
@@ -73,7 +92,10 @@ const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsC
             .duration(400)
             .ease(d3.easeQuadOut)
             .attrs({
-                width: d => xScale(fields[d]),
+                width: d => {
+                    const widthInPercent = (xScale(fields[d])/svgRef.current.width.baseVal.value) * 100
+                    return widthInPercent + '%'
+                },
             })
     }
 
@@ -89,35 +111,27 @@ const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsC
                 height: barThickness,
                 fill: `#${textColor}`,
             })
-    }
-
-    
-
-    useEffect(() => {
-        updateBarChart()
-
-        // svg.transition()
-        //     .duration(300)
-        //     .ease(d3.easeBackInOut)
-        //     .attr('height', props.height)
-
-        // let section = d3.select(recRef.current);
-        // section.transition()
-        //     .duration(300)
-        //     .ease(d3.easeBackInOut)
-        //     .attr('height', props.height)
-        //     .on("end", () =>
-        //         setHeight(props.height)
-        //     );
-    })
-
-    
+    }    
 
     return(
-        <svg ref={ svgRef } width={width}>
-            {/* <g ref={ gRef }>
-            </g> */}
-        </svg>
+        <>
+            <div id="barchart">
+                <svg ref={ svgRef } width={"100%"}>
+                </svg>
+            </div>
+            { exportChart ? prepareExport() : null }
+            <div style={{display: 'none'}} id='chartForExport'></div>
+            <textarea 
+                id="textArea" 
+                value="" 
+                style={{
+                    backgroundColor: '#383838',
+                    border: 'none',
+                    color: '#383838',
+                    height: 0,
+                    width: 0,
+                }}></textarea>
+        </>
     )
 }
 

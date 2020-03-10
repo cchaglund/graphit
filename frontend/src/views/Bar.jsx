@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
         padding: 1rem;
     `;  
 
-const Bar = ({ fields, width, charCount }) => {
+const Bar = ({ fields, width, charCount, exportChart }) => {
     const [ title, setTitle ] = useState();
     const [ barsColor, setBarsColor ] = useState();
     const [ padding, setPadding ] = useState();
@@ -55,7 +55,7 @@ const Bar = ({ fields, width, charCount }) => {
 
     return(
         <>
-            <BarChart 
+            <BarChart
                 fields={fields}
                 title={title}
                 padding={padding || 25}
@@ -64,7 +64,8 @@ const Bar = ({ fields, width, charCount }) => {
                 barThickness={barThickness || 20}
                 backgroundColor={backgroundColor || '000000'}
                 textColor={textColor || 'FA8072'}
-                barsColor={barsColor || 'FA8072'}/>
+                barsColor={barsColor || 'FA8072'}
+                exportChart={exportChart}/>
             <div>
                 <StyledRow width={width}>
                     <h5>Header</h5>
