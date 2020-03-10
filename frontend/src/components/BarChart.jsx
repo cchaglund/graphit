@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import * as d3 from "d3";
 import "d3-selection-multi";
 
-const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsColor, title, padding, textColor, width, exportChart}) => {
+const BarChart = ({
+    fields, labelCharLength, backgroundColor, barThickness, barsColor, title, padding, textColor, width, exportChart, resetExportHandler
+}) => {
+
     useEffect(() => {
         updateBarChart()
     })
@@ -27,6 +30,7 @@ const BarChart = ({fields, labelCharLength, backgroundColor, barThickness, barsC
         textArea.select()
         document.execCommand('copy')
         alert('Copied code to clipboard!')
+        resetExportHandler()
     }
 
     const svgRef = React.createRef();

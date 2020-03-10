@@ -24,6 +24,10 @@ const GraphOverview = ({ location }) => {
         setBarChartActive(!barChartActive)
     }
 
+    const resetExportHandler = () => {
+        setExportChart(false)
+    }
+
     const fields = location.state
 
     let charCount = 0;
@@ -42,7 +46,7 @@ const GraphOverview = ({ location }) => {
                 { 
                     barChartActive
                     ?
-                    <Bar fields={fields} width={width} charCount={charCount} exportChart={exportChart} />
+                    <Bar fields={fields} width={width} charCount={charCount} exportChart={exportChart} resetExportHandler={resetExportHandler} />
                     : 
                     <Pie fields={fields} width={width} exportChart={exportChart} />
                 }
