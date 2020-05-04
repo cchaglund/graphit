@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { withRouter } from "react-router-dom";
 
@@ -9,19 +9,38 @@ const StyledDiv = styled.div`
 
 const StyledButton = styled.button`
     align-self: flex-end;
+    background-color: #8AC6D0;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: none;
+`;
+
+const StyledTextarea = styled.textarea`
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
 `;
 
 const Paste = ({ history }) => {
+    const [ pastedData, setPastedData ] = useState();
+
     const clickHandler = () => {
-        console.log('hej')
-        history.push('/graph')
+        const parsedData = JSON.parse(pastedData)
+        history.push('/graph', parsedData)
+    }
+
+    const changeHandler = (e) => {
+        setPastedData(e.target.value)
     }
 
     return(
         <StyledDiv>
-            <textarea cols="100" rows="20" value="jasonbason">
-                Paste your json or csv here
-            </textarea>
+            <StyledTextarea cols="100" placeholder="Paste your JSON here" rows="14" onChange={ changeHandler }>
+                {pastedData}
+            </StyledTextarea>
             <StyledButton
                 onClick={ () => clickHandler() }>
                     Submit

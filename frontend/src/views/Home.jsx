@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import DataEntryMethod from '../components/DataEntryMethod';
 import Import from '../components/Import/Import';
 import Paste from '../components/Paste/Paste';
@@ -10,43 +10,36 @@ const StyledMain = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 5rem;
 `;
 
 const Home = () => {
+    const [ manualHeight, setManualHeight] = useState(200)
 
-    const callBackendAPI = async () => {
-        const response = await fetch('/api');
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            console.log('errur')
-            throw Error(body.message) 
-        }
-        console.log(body)
-        return body;
-    };
-
-    callBackendAPI()
+    const adjustHeight = () => {
+        const increment = 81
+        setManualHeight(manualHeight + increment)
+    }
 
     return (
         <StyledMain>
             <DataEntryMethod
                 key="import"
-                name="Upload file (JSON or CSV)"
+                name="Upload JSON"
                 height={100}>
                     <Import />
             </DataEntryMethod>
             <DataEntryMethod
                 key="paste"
-                name="Paste in raw data"
-                height={300}>
+                name="Paste in JSON data"
+                height={330}>
                     <Paste />
             </DataEntryMethod>
             <DataEntryMethod 
                 key="manual"
                 name="Enter data manually"
-                height={200}>
-                    <Manual />
+                height={manualHeight}>
+                    <Manual adjustHeight={adjustHeight}/>
             </DataEntryMethod>
         </StyledMain>
     )

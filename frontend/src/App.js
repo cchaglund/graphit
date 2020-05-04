@@ -2,13 +2,19 @@ import React from 'react';
 import Home from './views/Home';
 import GraphOverview from './views/GraphOverview';
 import styled from '@emotion/styled';
-// import logo from './logo.svg';
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
+
+
+const StyledMain = styled.div`
+    width: 100%;
+    display: flex;
+`;
 
 const Nav = styled.nav`
     height: 3rem;
@@ -17,15 +23,12 @@ const Nav = styled.nav`
 `;
 
 const StyleWrapper = styled.div`
-    background-color: #383838;
-    min-height: 100vh;
-    height: 100%;
+    height: 100vh;
     width: 100%;
 `;
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-    color: white;
 `;
 
 function App() {
@@ -34,9 +37,8 @@ function App() {
             <StyleWrapper>
                 <Nav>
                     <StyledLink to="/">Home</StyledLink>
-                    <StyledLink to="/graph">Graph</StyledLink>
                 </Nav>
-                <main>
+                <StyledMain>
                     <Switch>
                         <Route exact path="/">
                             <Home />
@@ -45,7 +47,7 @@ function App() {
                             <GraphOverview />
                         </Route>
                     </Switch>
-                </main>
+                </StyledMain>
             </StyleWrapper>
         </Router>
         

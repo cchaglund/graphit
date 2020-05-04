@@ -10,21 +10,21 @@ const StyledDiv = styled.div`
 
 const SubmitButton = styled.button`
     align-self: flex-end;
+    background-color: #8AC6D0;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
 `;
 
-const Manual = ({ history }) => {
-    const [ fields, setFields ] = useState(
-        { 
-
-        }
-    );
+const Manual = ({ history, adjustHeight }) => {
+    const [ fields, setFields ] = useState({});
 
     const submitHandler = () => {
         history.push('/graph', fields)
     }
 
     const saveFields = (label, value) => {
-        console.log(fields)
         setFields( prevState => {
             return { ...prevState, [label]: value }
         })
@@ -33,17 +33,19 @@ const Manual = ({ history }) => {
     return(
         <StyledDiv>
             <InputRow
-                key={ 'asdf' }
+                key={ 'first' }
                 label={ '' }
                 value={ '' }
-                saveFields={ (label, value) => saveFields(label, value) }/>
+                saveFields={ (label, value) => saveFields(label, value) }
+                adjustHeight={adjustHeight} />
             { Object.keys(fields).map( field => {
                 return (
                 <InputRow
                     key={ field }
                     label={ field }
                     value={ fields[field].value }
-                    saveFields={ (label, value) => saveFields(label, value) }/>
+                    saveFields={ (label, value) => saveFields(label, value) }
+                    adjustHeight={adjustHeight} />
                 )
             })}
             <SubmitButton

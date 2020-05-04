@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-// import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
     display: flex;
     justify-content: center;
     padding: 1rem 0.5rem;
+    margin-top: 3rem;
 `;
 
 const Content = styled.div`
@@ -15,7 +15,7 @@ const Content = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #575757;
+    background-color: #554971;
     transition: height 0.3s;
 `;
 

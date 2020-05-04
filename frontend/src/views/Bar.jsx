@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import BarChart from '../components/BarChart';
 import styled from '@emotion/styled';
 
-    const StyledRow = styled.div`
-        margin: auto;
-        width: ${props => props.width}px;
-        display: flex;
-        flex-direction: column;
-        align-items: space-between;
-        padding: 1rem;
-    `;  
+const StyledRow = styled.div`
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    padding: 2rem;
+    width: 25%;
+`; 
 
-const Bar = ({ fields, width, charCount, exportChart, resetExportHandler }) => {
+const StyledInput = styled.input`
+    width: 100%;
+    max-width: 250px;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+`;
+
+const StyledDiv = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
+const Bar = ({ fields, width, charCount }) => {
     const [ title, setTitle ] = useState();
     const [ barsColor, setBarsColor ] = useState();
     const [ padding, setPadding ] = useState();
@@ -23,10 +37,6 @@ const Bar = ({ fields, width, charCount, exportChart, resetExportHandler }) => {
         const color = e.target.value;
         setBackgroundColor(color)
     }
-    // if (color.length === 6) {
-    //         console.log('setting', color)
-    //         setTextColor(e.target.value)
-    //     }
 
     const textColorChangeHandler = (e) => {
         const color = e.target.value;
@@ -62,43 +72,41 @@ const Bar = ({ fields, width, charCount, exportChart, resetExportHandler }) => {
                 width={width}
                 labelCharLength={charCount}
                 barThickness={barThickness || 20}
-                backgroundColor={backgroundColor || '000000'}
-                textColor={textColor || 'FA8072'}
-                barsColor={barsColor || 'FA8072'}
-                exportChart={exportChart}
-                resetExportHandler={resetExportHandler}/>
-            <div>
+                backgroundColor={backgroundColor || 'fff'}
+                textColor={textColor || '000'}
+                barsColor={barsColor || '000'} />
+            <StyledDiv>
                 <StyledRow width={width}>
-                    <h5>Header</h5>
-                    <input type="text" placeholder="Title" key="title" value={ title }
+                    <p>Header</p>
+                    <StyledInput type="text" placeholder="Title" key="title" value={ title }
                         onChange={ titleChangeHandler }/>
                 </StyledRow>
                 <StyledRow width={width}>
-                    <h5>Graph background color</h5>
-                    <input type="text" placeholder="Hex value" value={ backgroundColor }
+                    <p>Background color</p>
+                    <StyledInput type="text" placeholder="Hex value" key="background" value={ backgroundColor }
                         onChange={ backgroundColorChangeHandler }/>
                 </StyledRow>
                 <StyledRow width={width}>
-                    <h5>Text color</h5>
-                    <input type="text" placeholder="Hex value" value={ textColor }
+                    <p>Text color</p>
+                    <StyledInput type="text" placeholder="Hex value" key="textColor" value={ textColor }
                         onChange={ textColorChangeHandler }/>
                 </StyledRow>
                 <StyledRow width={width}>
-                    <h5>Bar colors</h5>
-                    <input type="text" placeholder="Hex value" value={ barsColor }
+                    <p>Bar colors</p>
+                    <StyledInput type="text" placeholder="Hex value" key="barsColor" value={ barsColor }
                         onChange={ barsColorChangeHandler }/>
                 </StyledRow>
                 <StyledRow width={width}>
-                    <h5>Padding between bars</h5>
-                    <input type="number" placeholder="Pixel value" value={ padding }
+                    <p>Padding between bars</p>
+                    <StyledInput type="number" placeholder="Pixel value" key="padding" value={ padding }
                         onChange={ paddingChangeHandler }/>
                 </StyledRow>
                 <StyledRow width={width}>
-                    <h5>Bar thickness</h5>
-                    <input type="number" placeholder="Pixel value" value={ barThickness }
+                    <p>Bar thickness</p>
+                    <StyledInput type="number" placeholder="Pixel value" key="thickness" value={ barThickness }
                         onChange={ barThicknessChangeHandler }/>
                 </StyledRow>
-            </div>
+            </StyledDiv>
         </>
     );
 }

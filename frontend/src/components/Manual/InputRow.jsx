@@ -2,34 +2,55 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 const StyledRow = styled.div`
-    width: 27rem;
+    width: 40rem;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
 `;
 
-const InputRow = ({ saveFields, label, value }) => {
+const StyledInput = styled.input`
+    width: 100%;
+    margin: 10px;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+`;
+
+const StyledButton = styled.button`
+    background-color: #8AC6D0;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px;
+    border: none;
+`;
+
+const InputRow = ({ saveFields, label, value, adjustHeight }) => {
     const [ labelState, setLabelState ] = useState(label);
     const [ valueState, setValueState ] = useState(value);
 
     const labelChangeHandler = (e) => {
-        console.log(e.target.value)
         setLabelState(e.target.value)
     }
 
     const valueChangeHandler = (e) => {
-        console.log(e.target.value)
         setValueState(e.target.value)
+    }
+
+    const handleClick = () => {
+        saveFields( labelState, valueState )
+        adjustHeight()
     }
 
     return(
         <StyledRow>
-            <input type="text" placeholder="Label" value={ labelState }
+            <StyledInput type="text" placeholder="Label" value={ labelState }
                 onChange={ labelChangeHandler }/>
-            <input type="text" placeholder="Value" value={ valueState }
+            <StyledInput type="text" placeholder="Value" value={ valueState }
                 onChange={ valueChangeHandler }/>
-            <button
-                onClick={ () => saveFields( labelState, valueState ) }>Add this data</button>
+            <StyledButton
+                onClick={ () => handleClick() }>Add</StyledButton>
         </StyledRow>
     );
 }
