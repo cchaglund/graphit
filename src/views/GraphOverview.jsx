@@ -6,7 +6,8 @@ import styled from '@emotion/styled';
 const winWidth = window.innerWidth;
 const width = winWidth * 0.75;
 
-const StyledHeader = styled.p`
+const StyledHeader = styled.h1`
+    margin-top: 3rem;
     font-size: 25px;
     margin-bottom: 4rem;
 `;
@@ -57,15 +58,18 @@ const StyledTextArea = styled.textarea`
     width: 100%;
 `;
 
-const StyledButton = styled.div`
+const StyledButton = styled.button`
+    margin-top: 2rem;
+    align-self: flex-end;
     background-color: #8AC6D0;
     color: black;
     padding: 10px 20px;
     border-radius: 5px;
-    align-self: flex-end;
-    margin-bottom: 1rem;
-    margin-top: 2rem;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    border: none;
 `;
 
 

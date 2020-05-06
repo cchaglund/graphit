@@ -23,6 +23,10 @@ const StyledButton = styled.button`
     padding: 10px 20px;
     border-radius: 5px;
     margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    cursor: pointer;
     border: none;
 `;
 

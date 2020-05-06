@@ -12,9 +12,13 @@ const StyledButton = styled.button`
     background-color: #8AC6D0;
     color: black;
     padding: 10px 20px;
+    font-family: 'Kanit', sans-serif;
     border-radius: 5px;
     margin-top: 10px;
     border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 `;
 
 const StyledTextarea = styled.textarea`

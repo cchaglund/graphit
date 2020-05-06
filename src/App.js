@@ -18,7 +18,7 @@ const StyledMain = styled.div`
 
 const Nav = styled.nav`
     height: 3rem;
-    padding: 2rem;
+    padding: 0.5rem 2rem;
     display: flex;
 `;
 
@@ -36,7 +36,9 @@ function App() {
         <Router>
             <StyleWrapper>
                 <Nav>
-                    <StyledLink to="/">Home</StyledLink>
+                    <StyledLink to="/">
+                        <h2>Graph-it</h2>
+                    </StyledLink>
                 </Nav>
                 <StyledMain>
                     <Switch>

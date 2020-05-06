@@ -16,6 +16,8 @@
         "react-dom": "^16.12.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.3.0",
+        "typeface-kanit": "0.0.72",
+        "typeface-nobile": "0.0.72",
         "typeface-sniglet": "0.0.72"
     },
     "scripts": {
